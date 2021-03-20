@@ -118,9 +118,12 @@ void Obstaculos::terminateGL() {
 //
 void Obstaculos::update(const Entrada &entrada, float deltaTime) {
     m_translation += glm::vec2{deltaTime, 0.0f} * m_velocity;
-    if (m_velocity[0] > 0.0f){
+    if (m_velocity[0] > 0.05f){
         m_velocity -= glm::vec2{0.1f * deltaTime, 0.0f};
-    } 
+    }
+    else if (m_velocity[0] < -0.05f){
+        m_velocity += glm::vec2{0.1f * deltaTime, 0.0f};
+    }  
     else{
         m_velocity = glm::vec2{0.0f, 0.0f};
     }
@@ -129,13 +132,30 @@ void Obstaculos::update(const Entrada &entrada, float deltaTime) {
       m_rotation + m_velocidadeAngular * deltaTime);
     m_translation += m_velocity * deltaTime;
 
-    // Retorna o obstaculo para posição à 90 graus
-    if (m_velocidadeAngular > 0 || m_rotation < 0)
-      m_velocidadeAngular -= 0.1f * deltaTime;
-    if (m_velocidadeAngular < 0 || m_rotation > 0)
-      m_velocidadeAngular += 0.1f * deltaTime;
-    
-    // Retorna a bolinha para o solo
+    // Retorna o obstaculo para posição à 90 graus e reduz a velocidade algular
+    m_velocidadeAngular *= 0.9995 ;
+    if ((m_rotation < 0.05f ||  m_rotation > 6.25f) 
+      && (m_velocidadeAngular < 0.1f && m_velocidadeAngular > -0.1f )){
+      m_velocidadeAngular = 0;
+      m_rotation = 0;
+    }
+    else{
+      if ( m_rotation > 4.8f)
+        m_velocidadeAngular += 0.1f * deltaTime;
+      if (m_rotation > 0 && m_rotation < 1)
+        m_velocidadeAngular -= 0.1f * deltaTime;
+    }
+    // Segura o objeto na posição após ser tombado
+    if (m_rotation > 1.5f && m_rotation < 3.0f){
+      m_rotation = 1.55f;
+      m_velocidadeAngular = 0;
+    }
+    if (m_rotation > 4.65f && m_rotation < 4.8f){
+      m_rotation = 4.7f;
+      m_velocidadeAngular = 0;
+    }
+
+    // Retorna o obstaculo para o solo
     if (m_translation[1] >= -0.57f)
       m_velocity -= glm::vec2{0, 0.2f * deltaTime};
     else

@@ -74,9 +74,9 @@ void OpenGLWindow::initializeGL() {
 
   glClearColor(0, 0, 0, 1);
 
-#if !defined(__EMSCRIPTEN__)
-  glEnable(GL_PROGRAM_POINT_SIZE);
-#endif
+  #if !defined(__EMSCRIPTEN__)
+    glEnable(GL_PROGRAM_POINT_SIZE);
+  #endif
 
   // Start pseudo-random number generator
   auto seed{std::chrono::steady_clock::now().time_since_epoch().count()};
@@ -120,7 +120,7 @@ void OpenGLWindow::paintUI() {
   abcg::OpenGLWindow::paintUI();
 
   {
-    auto size{ImVec2(300, 85)};
+    auto size{ImVec2(300, 200)};
     auto position{ImVec2((m_viewportWidth - size.x) / 2.0f,
                          (m_viewportHeight - size.y) / 3.4f)};
     ImGui::SetNextWindowPos(position);
@@ -131,10 +131,15 @@ void OpenGLWindow::paintUI() {
     
     ImGui::Text("Distância do obstaculo: %f", m_distancia);
     ImGui::Text("Velocidade bolinha (x): %f", m_bola.m_velocity[0]);
-    // ImGui::Text("Velocidade algunla (x): %f", m_obstaculos.m_velocidadeAngular);
-    ImGui::Text("Rotação avião: %f", m_aviao.m_rotation);
-    ImGui::Text("Avião y: %f", m_aviao.m_velocity[1]);
+    ImGui::Text("Velocidade avião (x): %f", m_aviao.m_velocity[0]);
+    ImGui::Text("Velocidade rotacao (x): %f", m_obstaculos.m_rotation);
+    ImGui::Text("Velocidade algula (x): %f", m_obstaculos.m_velocidadeAngular);
+    
     ImGui::Text("Aperte 'espaço' para reiniciar");
+
+    ImGui::PushItemWidth(150);
+    ImGui::SliderFloat("Posição obstaculo (x)", &m_obstaculos.m_translation[0], -1.0f, 1.0f, "%f");
+    ImGui::PopItemWidth();
 
     ImGui::End();
   }
@@ -164,10 +169,12 @@ void OpenGLWindow::verificarColisoes() {
 
   auto distance{glm::distance(posicaoBola, posicaoObstaculo)};
   m_distancia = distance;
+
+  // Simula transferencia de energia entre os objetos após colisão
   if (distance < 0.23f) {
-    glm::vec2 velocidadeImpacto = m_bola.m_velocity * 0.7f;
+    glm::vec2 velocidadeImpacto = m_bola.m_velocity * 0.7f * glm::vec2(1, 0);
     m_obstaculos.m_velocity += velocidadeImpacto;
-    m_bola.m_velocity -= ((m_bola.m_velocity * 1.1f) + glm::vec2(0, -0.1f) ) * 1.5f;
+    m_bola.m_velocity -= ((m_bola.m_velocity * 1.1f) + glm::vec2(0, -0.05f) ) * 1.5f;
 
     // Da velocidade algular para o obstaculo após colisão
     m_obstaculos.m_velocidadeAngular += m_bola.m_velocity[0] * 0.4f;

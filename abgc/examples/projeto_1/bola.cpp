@@ -101,13 +101,17 @@ void Bola::terminateGL() {
 }
 
 void Bola::update(const Entrada &entrada, float deltaTime) {
+  // Da velocidade para a bolinha
   if (entrada.m_input[static_cast<size_t>(Input::Right)])
     m_velocity += glm::vec2{1.0f * deltaTime, 0};
   if (entrada.m_input[static_cast<size_t>(Input::Left)])
     m_velocity -= glm::vec2{1.0f * deltaTime, 0};
 
+  // Rotaciona de acordo com a velocidade
   m_rotation = glm::wrapAngle(m_rotation - 4.0f * deltaTime * m_velocity[0]);
   m_translation += m_velocity * deltaTime;
+
+  // Simula atrito
   if (m_velocity[0] > 0)
     m_velocity -= deltaTime * glm::vec2{5.2f * deltaTime, 0};
   if (m_velocity[0] < 0)

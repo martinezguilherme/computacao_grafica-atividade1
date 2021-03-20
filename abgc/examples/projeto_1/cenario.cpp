@@ -14,24 +14,20 @@ void Cenario::initializeGL(GLuint program) {
 
   m_translation = {0.0f, 0.0f};
 
-    std::vector<glm::vec4> colors;
-    std::vector<glm::vec2> positions;
-    positions.emplace_back(-1.0f, -0.58f);
-    positions.emplace_back(1.0f, -0.58f);
+  std::vector<glm::vec4> colors;
+  std::vector<glm::vec2> positions;
+  positions.emplace_back(-1.0f, -0.58f);
+  positions.emplace_back(1.0f, -0.58f);
 
-   // Create geometry e cores aleatorias
+  // Create geometry e cores aleatorias
   colors.push_back(glm::vec4(glm::vec4 (0.8f,
-                               0.9f,
-                               0.8f,
-                               0.8f)));
-    colors.push_back(glm::vec4(glm::vec4 (0.4f,
-                               0.6f,
-                               0.3f,
-                               0.8f)));
-
-
-
-  //positions.push_back(positions.at(1));
+                              0.9f,
+                              0.8f,
+                              0.8f)));
+  colors.push_back(glm::vec4(glm::vec4 (0.4f,
+                              0.6f,
+                              0.3f,
+                              0.8f)));
 
   // Generate VBO posições
   glGenBuffers(1, &m_vbo);
