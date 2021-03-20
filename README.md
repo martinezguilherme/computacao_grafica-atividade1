@@ -3,10 +3,6 @@
 ## Nome do desenvolvedor: Guilherme Gouveia Martinez
 ## RA: 11201720882
 
-    Nome e RA dos desenvolvedores.
-    Uma breve descrição do que é a aplicação.
-    Outras informações que considerar relevantes.
-
 ## Descrição
 
 Esta aplicação consite na simulação de 3 objetos:
