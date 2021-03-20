@@ -122,7 +122,7 @@ void OpenGLWindow::paintUI() {
   {
     auto size{ImVec2(300, 200)};
     auto position{ImVec2((m_viewportWidth - size.x) / 2.0f,
-                         (m_viewportHeight - size.y) / 3.4f)};
+                         (m_viewportHeight - size.y) / 0.85f)};
     ImGui::SetNextWindowPos(position);
     ImGui::SetNextWindowSize(size);
     ImGuiWindowFlags flags{ImGuiWindowFlags_NoBackground |
@@ -132,8 +132,6 @@ void OpenGLWindow::paintUI() {
     ImGui::Text("Distância do obstaculo: %f", m_distancia);
     ImGui::Text("Velocidade bolinha (x): %f", m_bola.m_velocity[0]);
     ImGui::Text("Velocidade avião (x): %f", m_aviao.m_velocity[0]);
-    ImGui::Text("Velocidade rotacao (x): %f", m_obstaculos.m_rotation);
-    ImGui::Text("Velocidade algula (x): %f", m_obstaculos.m_velocidadeAngular);
     
     ImGui::Text("Aperte 'espaço' para reiniciar");
 
