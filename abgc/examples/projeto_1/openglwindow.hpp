@@ -9,6 +9,7 @@
 #include "entrada.hpp"
 #include "bola.hpp"
 #include "cenario.hpp"
+#include "aviao.hpp"
 #include "obstaculos.hpp"
 
 class OpenGLWindow : public abcg::OpenGLWindow {
@@ -35,6 +36,8 @@ class OpenGLWindow : public abcg::OpenGLWindow {
   Entrada m_Entrada;
 
   Obstaculos m_obstaculos;
+
+  Aviao m_aviao;
 
   abcg::ElapsedTimer m_restartWaitTimer;
 

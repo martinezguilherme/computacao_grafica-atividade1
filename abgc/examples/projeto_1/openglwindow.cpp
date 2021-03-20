@@ -49,6 +49,20 @@ void OpenGLWindow::handleEvent(SDL_Event &event) {
     glm::vec2 direction{glm::vec2{mousePosition.x - m_viewportWidth / 2,
                                   mousePosition.y - m_viewportHeight / 2}};
     direction.y = -direction.y;
+
+    //printf("%f", direction.x);
+    //m_aviao.setRotation(std::atan2(direction.y, direction.x) - M_PI_2);
+    float deltaTime{static_cast<float>(getDeltaTime())};
+    if (direction.x > 0)
+      m_aviao.m_velocity[0] += 0.1f * deltaTime ;
+    else
+      m_aviao.m_velocity[0] += -0.1f * deltaTime;
+    
+    if (direction.y/2.0f > -0.5f)
+      m_aviao.m_velocity[1] += 0.1f * deltaTime;
+    else
+      m_aviao.m_velocity[1] -= 0.1f * deltaTime;
+    
   }
 }
 
@@ -75,6 +89,7 @@ void OpenGLWindow::restart() {
     m_bola.initializeGL(m_objectsProgram);
     m_cenario.initializeGL(m_objectsProgram);
     m_obstaculos.initializeGL(m_objectsProgram);
+    m_aviao.initializeGL(m_objectsProgram);
 }
 
 void OpenGLWindow::update() {
@@ -82,6 +97,7 @@ void OpenGLWindow::update() {
   m_bola.update(m_Entrada, deltaTime);
   m_cenario.update(m_Entrada, deltaTime);
   m_obstaculos.update(m_Entrada, deltaTime);
+  m_aviao.update(m_Entrada, deltaTime);
   verificarColisoes();
   if(m_Entrada.m_input[static_cast<size_t>(Input::Espaco)]){
     restart();}
@@ -96,6 +112,7 @@ void OpenGLWindow::paintGL() {
    m_bola.paintGL(m_Entrada);
    m_cenario.paintGL(m_Entrada);
    m_obstaculos.paintGL(m_Entrada);
+   m_aviao.paintGL(m_Entrada);
 
 }
 
@@ -115,6 +132,7 @@ void OpenGLWindow::paintUI() {
     ImGui::Text("Distância do obstaculo: %f", m_distancia);
     ImGui::Text("Velocidade bolinha (x): %f", m_bola.m_velocity[0]);
     // ImGui::Text("Velocidade algunla (x): %f", m_obstaculos.m_velocidadeAngular);
+    ImGui::Text("Velocidade x avião: %f", m_aviao.m_velocity[0]);
     ImGui::Text("Aperte 'espaço' para reiniciar");
 
     ImGui::End();
@@ -134,6 +152,7 @@ void OpenGLWindow::terminateGL() {
   m_bola.terminateGL();
   m_cenario.terminateGL();
   m_obstaculos.terminateGL();
+  m_aviao.terminateGL();
 }
 
 void OpenGLWindow::verificarColisoes() {
