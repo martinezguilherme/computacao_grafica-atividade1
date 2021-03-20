@@ -3,10 +3,10 @@
 
 #include <bitset>
 
-enum class Input { Right, Left, Down, Up };
+enum class Input { Right, Left, Down, Up, Espaco };
 
 struct Entrada {
-  std::bitset<4> m_input;  // [fire, up, down, left, right]
+  std::bitset<5> m_input; 
 };
 
 #endif

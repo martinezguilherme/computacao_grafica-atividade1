@@ -12,16 +12,19 @@ void Obstaculos::initializeGL(GLuint program) {
     m_scaleLoc = glGetUniformLocation(m_program, "scale");
     m_translationLoc = glGetUniformLocation(m_program, "translation");
 
-    m_translation = {-0.1f, -0.57f};
+    m_translation = {0.4f, -0.57f};
+    m_velocidadeAngular  = 0;
+    m_rotation = 0;
+    m_velocity = glm::vec2(0);
 
     std::vector<glm::vec4> colors;
     std::vector<glm::vec2> positions;
-    positions.emplace_back(0.5f, 0.5f);
-    positions.emplace_back(0.75f, 0.5f);
-    positions.emplace_back(0.75f, 0.0f);
-    positions.emplace_back(0.5f, 0.0f);
-    positions.emplace_back(0.75f, 0.0f);
-    positions.emplace_back(0.5f, 0.5f);
+    positions.emplace_back(-0.15f, 0.5f);
+    positions.emplace_back(0.15f, 0.5f);
+    positions.emplace_back(0.15f, 0.0f);
+    positions.emplace_back(-0.15f, 0.0f);
+    positions.emplace_back(0.15f, 0.0f);
+    positions.emplace_back(-0.15f, 0.5f);
 
    // Create geometry e cores aleatorias
     colors.push_back(glm::vec4(glm::vec4 (0.8f,
@@ -121,4 +124,20 @@ void Obstaculos::update(const Entrada &entrada, float deltaTime) {
     else{
         m_velocity = glm::vec2{0.0f, 0.0f};
     }
+
+    m_rotation = glm::wrapAngle(
+      m_rotation + m_velocidadeAngular * deltaTime);
+    m_translation += m_velocity * deltaTime;
+
+    // Retorna o obstaculo para posição à 90 graus
+    if (m_velocidadeAngular > 0 || m_rotation < 0)
+      m_velocidadeAngular -= 0.1f * deltaTime;
+    if (m_velocidadeAngular < 0 || m_rotation > 0)
+      m_velocidadeAngular += 0.1f * deltaTime;
+    
+    // Retorna a bolinha para o solo
+    if (m_translation[1] >= -0.57f)
+      m_velocity -= glm::vec2{0, 0.2f * deltaTime};
+    else
+      m_velocity = glm::vec2{m_velocity[0], 0};
 }

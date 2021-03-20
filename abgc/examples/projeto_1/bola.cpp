@@ -101,26 +101,22 @@ void Bola::terminateGL() {
 }
 
 void Bola::update(const Entrada &entrada, float deltaTime) {
-  if (entrada.m_input[static_cast<size_t>(Input::Right)]){
-    // m_rotation = glm::wrapAngle(m_rotation - 4.0f * deltaTime);
+  if (entrada.m_input[static_cast<size_t>(Input::Right)])
     m_velocity += glm::vec2{1.0f * deltaTime, 0};
-    // m_translation += glm::vec2{1.0f * deltaTime, 0};
-  }
-  if (entrada.m_input[static_cast<size_t>(Input::Left)]){
-    // m_rotation = glm::wrapAngle(m_rotation + 4.0f * deltaTime);
-    // m_translation -= glm::vec2{1.0f * deltaTime, 0};
+  if (entrada.m_input[static_cast<size_t>(Input::Left)])
     m_velocity -= glm::vec2{1.0f * deltaTime, 0};
-  }
+
   m_rotation = glm::wrapAngle(m_rotation - 4.0f * deltaTime * m_velocity[0]);
   m_translation += m_velocity * deltaTime;
   if (m_velocity[0] > 0)
     m_velocity -= deltaTime * glm::vec2{5.2f * deltaTime, 0};
   if (m_velocity[0] < 0)
     m_velocity += deltaTime * glm::vec2{5.2f * deltaTime, 0};
+
+  // Retorna a bolinha para o solo
   if (m_translation[1] >= -0.45f)
     m_velocity -= glm::vec2{0, 0.2f * deltaTime};
-  else{
+  else
     m_velocity = glm::vec2{m_velocity[0], 0};
-  }
 
 }

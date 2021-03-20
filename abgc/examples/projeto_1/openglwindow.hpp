@@ -24,6 +24,7 @@ class OpenGLWindow : public abcg::OpenGLWindow {
  
   int m_viewportWidth{};
   int m_viewportHeight{};
+  float m_distancia{};
 
   GLuint m_objectsProgram{};
 

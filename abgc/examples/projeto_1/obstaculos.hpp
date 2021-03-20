@@ -33,6 +33,7 @@ class Obstaculos {
   GLuint m_vboCores{};
 
   glm::vec4 m_color{0.3};
+  float m_velocidadeAngular{0.0f};
   float m_rotation{};
   float m_scale{0.5f};
   glm::vec2 m_translation{glm::vec2(0)};
