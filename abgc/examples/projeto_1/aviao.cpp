@@ -40,6 +40,12 @@ void Aviao::initializeGL(GLuint program) {
 
     for (size_t i = 0; i < 14; i++)
     {
+      m_positions.emplace_back(-1* m_positions[i][0], m_positions[i][1]);
+    }
+    
+
+    for (size_t i = 0; i < 28; i++)
+    {
             colors.push_back(glm::vec4(glm::vec4 (1.0f,
                                     1.0f,
                                     1.0f,
@@ -89,7 +95,6 @@ void Aviao::initializeGL(GLuint program) {
 
 void Aviao::paintGL(const Entrada &entrada) {
 
-
   glUseProgram(m_program);
 
   glBindVertexArray(m_vao);
@@ -98,7 +103,11 @@ void Aviao::paintGL(const Entrada &entrada) {
   glUniform1f(m_rotationLoc, m_rotation);
   glUniform2fv(m_translationLoc, 1, &m_translation.x);
   
-  glDrawArrays(  GL_LINE_LOOP, 0, 14);
+  // Seleciona qual direção do avião será desenhada com base na velocidade no eixo x
+  if (m_velocity[0] >= 0)
+    glDrawArrays(  GL_LINE_LOOP, 14, 14);
+  else
+    glDrawArrays(  GL_LINE_LOOP, 0, 14);
 
   glBindVertexArray(0);
 
@@ -112,5 +121,11 @@ void Aviao::terminateGL() {
 //
 void Aviao::update(const Entrada &entrada, float deltaTime) {
     m_translation += glm::vec2{deltaTime, deltaTime} * m_velocity;
+    
+    // Inclina o avião de acordo com a direção e a velocidade vertical
+    if (m_velocity[0] >= 0)
+      m_rotation =  (float)((int)(m_velocity[1] * 100) % 100)/100;
+    else
+      m_rotation = (float)((int)(-1 * m_velocity[1] * 100) % 100)/100;
 
 }

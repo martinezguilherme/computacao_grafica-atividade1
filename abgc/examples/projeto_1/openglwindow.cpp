@@ -132,7 +132,8 @@ void OpenGLWindow::paintUI() {
     ImGui::Text("Distância do obstaculo: %f", m_distancia);
     ImGui::Text("Velocidade bolinha (x): %f", m_bola.m_velocity[0]);
     // ImGui::Text("Velocidade algunla (x): %f", m_obstaculos.m_velocidadeAngular);
-    ImGui::Text("Velocidade x avião: %f", m_aviao.m_velocity[0]);
+    ImGui::Text("Rotação avião: %f", m_aviao.m_rotation);
+    ImGui::Text("Avião y: %f", m_aviao.m_velocity[1]);
     ImGui::Text("Aperte 'espaço' para reiniciar");
 
     ImGui::End();
