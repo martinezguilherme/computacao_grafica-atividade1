@@ -18,8 +18,7 @@ Esta aplicação consite na simulação de 3 objetos:
 
 Através de movimentos do mouse pode-se controlar o avião, que receberá uma força proporcional de acordo com a direção e intensidade dos movimentos. Ele também irá reagir caso a velocidade vertical esteja baixa ou alta, apontando o nariz para cima ou para baixo, além de mudar de direção caso passe a se movimentar na outra direção. A figura abaixo exibem quais regiões controlam ele e as setas amarelas indicam em qual direção será aplicada a aceleração.
 
-![Tutorial avião](/captura de tela - tutorial.png)
-Format: ![Alt Text](url)
+![Tutorial avião](captura de tela - tutorial.png)
 
 
 
