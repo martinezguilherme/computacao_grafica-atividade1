@@ -18,9 +18,8 @@ Esta aplicação consite na simulação de 3 objetos:
 
 Através de movimentos do mouse pode-se controlar o avião, que receberá uma força proporcional de acordo com a direção e intensidade dos movimentos. Ele também irá reagir caso a velocidade vertical esteja baixa ou alta, apontando o nariz para cima ou para baixo, além de mudar de direção caso passe a se movimentar na outra direção. A figura abaixo exibem quais regiões controlam ele e as setas amarelas indicam em qual direção será aplicada a aceleração.
 
-![Tutorial avião](captura de tela - tutorial.png)
+![Tutorial avião](https://github.com/martinezguilherme/computacao_grafica-atividade1/blob/9ac9ea6a3622cc723e29b8f07f5549fcea0c617c/captura%20de%20tela%20-%20tutorial.png)
 
-
-
+Na parte debaixo são exibidas algumas informações, como a velocidade da bolinha, a distância dela para o obstaculo e a velocidade do avião (eixo x).
 
 Por fim, a aplicação pode ser reiniciada ao pressionar a tecla "Espaço".
